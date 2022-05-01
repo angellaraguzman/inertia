@@ -2,6 +2,31 @@
 import AppLayout from '@/Layouts/AppLayout.vue'; 
 
 </script>
+<script>
+import { Inertia } from '@inertiajs/inertia';
+export default{
+    props:["users"],
+    data() {
+        return{
+            name:"Pepe",
+            email:"pepe@gmail.com",
+            password: "12345"
+        }
+    },
+    components:{
+        AppLayout,
+    },
+    methods:{
+        submit(){
+            Inertia.post(route('user.store'),{
+                name: this.name,
+                password: this.password,
+                email: this.email,
+            })
+        },
+    }
+};
+</script>
 
 
 <template>
@@ -17,7 +42,17 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                    
-                        Hola mundo
+                        <form @submit.prevent="submit">
+
+                       <label for="">Nombre:</label>
+                       <input type="text" v_model="name"/>
+                        <label for="">Email:</label>
+                       <input type="text" v_model="email"/>
+                        <label for="">Contraseña:</label>
+                       <input type="password" v_model="password"/>
+
+                       <button type="submit">Enviar</button>
+                        </form>
                     </div>
                 </div>
             </div>
