@@ -5,12 +5,12 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 <script>
 import { Inertia } from '@inertiajs/inertia';
 export default{
-    props:["users"],
+    props:["users","errors" ],
     data() {
         return{
-            name:"Pepe",
-            email:"pepe@gmail.com",
-            password: "12345"
+            name:"nom",
+            email:"dasd@gmail.com",
+            password:" nulldsdsds"
         }
     },
     components:{
@@ -41,15 +41,14 @@ export default{
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                   
-                        <form @submit.prevent="submit">
-
-                       <label for="">Nombre:</label>
-                       <input type="text" v_model="name"/>
-                        <label for="">Email:</label>
-                       <input type="text" v_model="email"/>
-                        <label for="">Contraseña:</label>
-                       <input type="password" v_model="password"/>
+                        {{errors}}
+                        <form @submit.prevent="submit"> 
+                       <label>Nombre:</label>
+                       <input type="text" v-model="name"/>
+                        <label >Email:</label>
+                       <input type="text" v-model="email"/>
+                        <label >Contraseña:</label>
+                       <input type="password" v-model="password"/>
 
                        <button type="submit">Enviar</button>
                         </form>
