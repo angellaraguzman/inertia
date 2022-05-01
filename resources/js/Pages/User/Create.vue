@@ -1,28 +1,33 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'; 
-
 </script>
 <script>
 import { Inertia } from '@inertiajs/inertia';
+import JetInputError from '@/Jetstream/InputError.vue';
+import JetInput from '@/Jetstream/Input.vue';
+import JetLabel from '@/Jetstream/Label.vue';
+import JetButton from '@/Jetstream/Button.vue'; 
 export default{
     props:["users","errors" ],
     data() {
         return{
-            name:"nom",
-            email:"dasd@gmail.com",
-            password:" nulldsdsds"
+            form:{
+                  name:"",
+            email:"",
+            password:"",
+            },
         }
     },
     components:{
         AppLayout,
+        JetInputError,
+        JetInput,
+        JetLabel,
+        JetButton,
     },
     methods:{
         submit(){
-            Inertia.post(route('user.store'),{
-                name: this.name,
-                password: this.password,
-                email: this.email,
-            })
+            Inertia.post(route('user.store'),this.form)
         },
     }
 };
@@ -41,16 +46,25 @@ export default{
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        {{errors}}
-                        <form @submit.prevent="submit"> 
-                       <label>Nombre:</label>
-                       <input type="text" v-model="name"/>
-                        <label >Email:</label>
-                       <input type="text" v-model="email"/>
-                        <label >Contraseña:</label>
-                       <input type="password" v-model="password"/>
+                      
+                 <form @submit.prevent="submit">
+                    <div class="mt-4">
+                       <jet-label value="Nombre:"/>
+                        <jet-input-error :message="errors.name"/>
+                       <jet-input class="mt-1 block w-full" type="text" v-model="form.name"/>
+                    </div>
+                    <div class="mt-4">
+                       <jet-label value="Email:"/>
+                       <jet-input-error :message="errors.email"/>
+                      <jet-input class="mt-1 block w-full" type="text" v-model="form.email"/>
+                       </div>
+                        <div class="mt-4">
+                        <jet-label value="Password:"/>
+                        <jet-input-error :message="errors.password"/>
+                       <jet-input class="mt-1 block w-full"  type="password" v-model="form.password"/>
+                        </div>
 
-                       <button type="submit">Enviar</button>
+                       <jet-button class="mt-4" type="submit">Enviar</jet-button>
                         </form>
                     </div>
                 </div>
