@@ -26,13 +26,14 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum','verified',
-])->group(function () {
+Route::middleware(['auth:sanctum','verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('/user', UserController::class)->parameters(['user' => 'customer']);
+
 });
-Route::middleware(['auth:sanctum','verified'])->resource('/dashboard/user',UserController::class);
 /*Route::middleware([
     'auth:sanctum',
     'verified',

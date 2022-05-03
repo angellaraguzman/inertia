@@ -33,6 +33,7 @@ export default{
                      <table class="table-auto w-full">
                          <thead>
                              <tr>
+                                 <th class="p-3">ID</th>
                                  <th class="p-3">Nombre</th>
                                  <th class="p-3">Email</th>
                                  <th class="p-3">Acciones</th>
@@ -43,9 +44,9 @@ export default{
                                 <td class="p-3 border">{{u.id}}</td>
                                 <td class="p-3 border">{{u.name}}</td>
                                 <td class="p-3 border">{{u.email}}</td>
-                                <td class="p-3 border">Acciones</td>
+                                  <Link :href="route('user.show', { 'user' : u })">Ver Usuario </Link>
                             </tr>
-                         </tbody>
+                         </tbody>       
                      </table>
                      
                 

@@ -2,34 +2,16 @@
 import AppLayout from '@/Layouts/AppLayout.vue'; 
 </script>
 <script>
-import { Inertia } from '@inertiajs/inertia';
 import JetInputError from '@/Jetstream/InputError.vue';
-import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
-import JetButton from '@/Jetstream/Button.vue'; 
 export default{
-    props:["users","errors" ],
-    data() {
-        return{
-            form:{
-                  name:"",
-            email:"",
-            password:"",
-            },
-        }
-    },
+    props:["user"],
     components:{
         AppLayout,
         JetInputError,
-        JetInput,
         JetLabel,
-        JetButton,
     },
-    methods:{
-        submit(){
-            Inertia.post(route('user.store'),this.form)
-        },
-    }
+   
 };
 </script>
 
@@ -49,19 +31,16 @@ export default{
                        
                  <form @submit.prevent="submit">
                     <div class="mt-4">
-                       <jet-label value="Nombre:"/>
-                        <jet-input-error :message="errors.name"/>
-                       <jet-input class="mt-1 block w-full" type="text" v-model="form.name"/>
+                       <jet-label :value="`Nombre: ${user.name}`" />
+                       
                     </div>
                     <div class="mt-4">
                        <jet-label value="Email:"/>
-                       <jet-input-error :message="errors.email"/>
-                      <jet-input class="mt-1 block w-full" type="text" v-model="form.email"/>
+                      <jet-input class="mt-1 block w-full" type="text" v-model="user.email"/>
                        </div>
                         <div class="mt-4">
                         <jet-label value="Password:"/>
-                        <jet-input-error :message="errors.password"/>
-                       <jet-input class="mt-1 block w-full"  type="password" v-model="form.password"/>
+                       <jet-input class="mt-1 block w-full"  type="password" v-model="user.password"/>
                         </div>
 
                        <jet-button class="mt-4" type="submit">Enviar</jet-button>
