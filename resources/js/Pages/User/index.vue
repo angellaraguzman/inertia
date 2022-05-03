@@ -28,7 +28,6 @@ export default{
                         
                         <Link :href="route('user.create')">Crear Usuario </Link>
                      <!--{{users}}-->
-                        {{$page}}
 
                      <table class="table-auto w-full">
                          <thead>
@@ -44,7 +43,8 @@ export default{
                                 <td class="p-3 border">{{u.id}}</td>
                                 <td class="p-3 border">{{u.name}}</td>
                                 <td class="p-3 border">{{u.email}}</td>
-                                  <Link :href="route('user.show', { 'user' : u })">Ver Usuario </Link>
+                                  <Link :href="route('user.show', { 'showUser' : u })">Ver Usuario </Link>
+                                  <Link :href="route('user.edit', { 'showUser' : u })">Editar Usuario </Link>
                             </tr>
                          </tbody>       
                      </table>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreUserPost;
+use App\Http\Requests\UpdateUserPut;
 
 class UserController extends Controller
 {
@@ -60,9 +62,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $showUser)
     {
-        //
+        return Inertia::render('User/Edit',compact('showUser'));
     }
 
     /**
@@ -72,9 +74,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserPut $request, User $showUser)
     {
-        //
+        $showUser->update($request->validated());
+        return Redirect::route('user.edit',$showUser);
     }
 
     /**
