@@ -258,7 +258,7 @@ const logout = () => {
                                 </div>
 
                                 <!-- Team Settings -->
-                                <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team)" :active="route().current('teams.show')">
+                                <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team_id)" :active="route().current('teams.show')">
                                     Team Settings
                                 </JetResponsiveNavLink>
 

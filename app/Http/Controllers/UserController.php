@@ -49,9 +49,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $customer)
+    public function show(User $showUser)
     {
-        return Inertia::render('User/Show',compact('customer'));
+        return Inertia::render('User/Show',compact('showUser'));
     }
 
     /**

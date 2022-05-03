@@ -2,13 +2,13 @@
 import AppLayout from '@/Layouts/AppLayout.vue'; 
 </script>
 <script>
-import JetInputError from '@/Jetstream/InputError.vue';
+import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 export default{
-    props:["user"],
+    props:["showUser"],
     components:{
         AppLayout,
-        JetInputError,
+        JetInput,
         JetLabel,
     },
    
@@ -31,19 +31,13 @@ export default{
                        
                  <form @submit.prevent="submit">
                     <div class="mt-4">
-                       <jet-label :value="`Nombre: ${user.name}`" />
+                       <jet-label :value="`Nombre: ${showUser.name}`" />
                        
                     </div>
                     <div class="mt-4">
-                       <jet-label value="Email:"/>
-                      <jet-input class="mt-1 block w-full" type="text" v-model="user.email"/>
+                         <jet-label :value="`Email: ${showUser.email}`" />
                        </div>
-                        <div class="mt-4">
-                        <jet-label value="Password:"/>
-                       <jet-input class="mt-1 block w-full"  type="password" v-model="user.password"/>
-                        </div>
-
-                       <jet-button class="mt-4" type="submit">Enviar</jet-button>
+ 
                         </form>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ export default{
                         
                         <Link :href="route('user.create')">Crear Usuario </Link>
                      <!--{{users}}-->
-
+                        {{$page}}
 
                      <table class="table-auto w-full">
                          <thead>
