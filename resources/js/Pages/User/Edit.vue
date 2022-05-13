@@ -9,6 +9,7 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetButton from '@/Jetstream/Button.vue'; 
 export default{
     props:["showUser","errors" ],
+    name:'EditForm',
     data() {
         return{
             form:{

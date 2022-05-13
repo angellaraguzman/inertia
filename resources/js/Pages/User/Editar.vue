@@ -6,31 +6,33 @@ import { Inertia } from '@inertiajs/inertia';
 import JetInputError from '@/Jetstream/InputError.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
-import JetButton from '@/Jetstream/Button.vue'; 
-import UserForm from '@/Components/UserForm.vue';
+import JetButton from '@/Jetstream/Button.vue';
+import UserForm from '@/Components/UserForm.vue'; 
 
 export default{
-    props:["users","errors" ],
+    props:["showUser","errors" ],
+    // created(){
+      //  console.log({ ...this.form });
+      //  this.$emit('onSubmit', { ...this.form });
+   // },
+    
     data() {
         return{
-            form:{
-                  name:"",
-            email:"",
-            password:"",
-            },
+
         }
     },
+   
     components:{
         AppLayout,
         JetInputError,
-        JetInput,
+        JetInput,   
         JetLabel,
         JetButton,
         UserForm,
     },
     methods:{
-        handleSubmit(data){
-            Inertia.post(route('user.store'),data)
+        handleSubmit(data){ 
+            Inertia.put(route('user.update',{'showUser': this.showUser}),data)
         },
     }
 };
@@ -49,7 +51,7 @@ export default{
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        <UserForm @onSubmit="handleSubmit" />
+                        <UserForm @onSubmit="handleSubmit" :value="showUser" />
                     </div>
                 </div>
             </div>

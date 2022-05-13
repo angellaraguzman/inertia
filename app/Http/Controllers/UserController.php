@@ -39,10 +39,11 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserPost $request )
+    public function store(UserUpdateRequest $request )
     {
        User::create($request->validated());
-       return Inertia::render('User/Create');
+       $users = User::all();
+       return Inertia::render('User/index',compact('users'));
     }
 
     /**
@@ -64,7 +65,9 @@ class UserController extends Controller
      */
     public function edit(User $showUser)
     {
-        return Inertia::render('User/Edit',compact('showUser'));
+       // return Inertia::render('User/Edit',compact('showUser'));
+        return Inertia::render('User/Editar',compact('showUser'));
+
     }
 
     /**
@@ -74,10 +77,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserPut $request, User $showUser)
+    public function update(UserUpdateRequest $request, User $showUser)
     {
-        $showUser->update($request->validated());
-        return Redirect::route('user.edit',$showUser);
+        $showUser->update($request ->validated());
+        return Redirect::route('user.index');
     }
 
     /**
@@ -86,8 +89,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $showUser)
     {
-        //
+        $showUser->delete();
+        return Redirect::route('user.index',$showUser);
     }
 }
