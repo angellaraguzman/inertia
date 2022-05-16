@@ -1,3 +1,6 @@
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue'; 
 
@@ -70,12 +73,17 @@ export default{
                                 <td class="p-3 border">{{u.id}}</td>
                                 <td class="p-3 border">{{u.name}}</td>
                                 <td class="p-3 border">{{u.email}}</td>
-                                  <Link :href="route('user.show', { 'showUser' : u })">Ver</Link>
-                                  <Link :href="route('user.edit', { 'showUser' : u })">Editar</Link>
+
+                                <jet-button class="bg-green-500 hover:bg-green-800 px-12" style="margin: 10px">
+                                    <Link  :href="route('user.show', { 'showUser' : u })">Ver</Link>
+                                </jet-button>
+                                <jet-button class="bg-blue-500 hover:bg-blue-800 px-12" style="margin: 10px">
+                                     <Link :href="route('user.edit', { 'showUser' : u })">Editar</Link>
+                                </jet-button>
                                 
                                  <!-- <Link method="DELETE" :href="route('user.destroy', { 'showUser' : u })">Eliminar</Link>-->
 
-                                  <button @click="handleOpenModal(u)">Eliminar</button>
+                                  <jet-button class="bg-red-500 hover:bg-red-800 px-12" style="margin: 10px" @click="handleOpenModal(u)">Eliminar</jet-button>
                             </tr>
                          </tbody>       
                      </table>
@@ -93,8 +101,8 @@ export default{
                 <h1 v-if="selectedUser">¿Seguro que quieres eliminar al usuario: {{selectedUser.name}} ?</h1>
             </template> 
             <template v-slot:footer>
-                <jet-button  @click="deleteUser">Eliminar</jet-button>
-                <jet-button class="bg-red-500 hover:bg-red-800" @click="handleCloseModal()">Cerrar</jet-button>
+                <jet-button style="margin: 10px" @click="deleteUser">Eliminar</jet-button>
+                <jet-button style="margin: 10px" class="bg-red-500 hover:bg-red-800"  @click="handleCloseModal()">Cerrar</jet-button>
             </template>
          </jet-dialog-modal>
     </AppLayout>
