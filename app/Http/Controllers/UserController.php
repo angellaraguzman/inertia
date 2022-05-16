@@ -39,7 +39,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserUpdateRequest $request )
+    public function store(StoreUserPost $request )
     {
        User::create($request->validated());
        $users = User::all();
@@ -77,7 +77,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $showUser)
+    public function update(UpdateUserPut $request, User $showUser)
     {
         $showUser->update($request ->validated());
         return Redirect::route('user.index');
