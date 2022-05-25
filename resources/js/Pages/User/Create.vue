@@ -14,10 +14,11 @@ export default{
     data() {
         return{
             form:{
-                  name:"",
-            email:"",
-            password:"",
+                name:"",
+                email:"",
+                password:"",
             },
+            errors_server: []
         }
     },
     components:{
@@ -30,7 +31,19 @@ export default{
     },
     methods:{
         handleSubmit(data){
-            Inertia.post(route('user.store'),data)
+            axios.post('/api/user',data).then((response) => {
+                window.location = '/user';               
+            }).catch((error) => {
+                let errors = error.response?.data?.errors ?? null;
+                this.errors_server = [];
+
+                console.error(error);
+
+                if(errors && Object.keys(errors).length){
+                    /* Check for laravel errors */
+                    this.errors_server = ( Object.values(errors) ).reduce((acc, val) => acc.concat(val), []); 
+                }
+            });
         },
     }
 };
@@ -44,12 +57,16 @@ export default{
                 User
             </h2>
         </template>
-
+             
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                         
                         <UserForm @onSubmit="handleSubmit" />
+                        <ul>
+                            <li v-for="(e, i) in errors_server" :key="i">{{e}}</li>
+                        </ul>
                     </div>
                 </div>
             </div>

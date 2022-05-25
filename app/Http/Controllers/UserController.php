@@ -10,19 +10,21 @@ use App\Http\Requests\StoreUserPost;
 use App\Http\Requests\UpdateUserPut;
 
 class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+{ 
     public function index()
     {
-        $users = User::all();
-        return Inertia::render('User/index',compact('users'));
- 
+       $users = User::all();
+
+
+       return Inertia::render('User/index',compact('users'));
     }
 
+    
+    public function list()
+    {
+        return response()->json( ['tres' => User::all()]);
+         
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,9 +43,11 @@ class UserController extends Controller
      */
     public function store(StoreUserPost $request )
     {
-       User::create($request->validated());
-       $users = User::all();
-       return Inertia::render('User/index',compact('users'));
+       $user = User::create($request->validated());
+       
+       return response()->json([
+           'id' => $user->id
+       ]);
     }
 
     /**
@@ -81,6 +85,11 @@ class UserController extends Controller
     {
         $showUser->update($request ->validated());
         return Redirect::route('user.index');
+
+        /*
+
+
+        */
     }
 
     /**

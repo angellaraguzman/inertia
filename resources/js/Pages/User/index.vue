@@ -12,13 +12,15 @@ import JetDialogModal from '@/Jetstream/DialogModal.vue';
 import JetButton from '@/Jetstream/Button.vue'; 
 
 export default{
-    props:['users'],
     data(){
         return{
+            users: [],
+            info: null,
            modalOpen:false,
            selectedUser:Object
         }
     },
+    
     components:{
         Link,
         JetDialogModal,
@@ -26,8 +28,7 @@ export default{
     },
     methods:{
         deleteUser(){
-        /*    if(!confirm("¿Seguro que quieres eliminar el usuario: "+data.name+"?"))
-            return;*/
+       
             Inertia.delete(route("user.destroy", {showUser: this.selectedUser}))
             this.modalOpen=false
         },
@@ -38,8 +39,15 @@ export default{
         handleCloseModal(){
             this.modalOpen = false;
             this.selectedUser = null;
+        },
+        getUser(){
+            axios.get('/api/user')
+                .then((response)=>{this.users = response.data.tres})
         }
-    }
+    },
+    created() {
+        this.getUser()
+    }, 
 }
 </script>
 
@@ -74,15 +82,9 @@ export default{
                                 <td class="p-3 border">{{u.name}}</td>
                                 <td class="p-3 border">{{u.email}}</td>
 
-                                <jet-button class="bg-green-500 hover:bg-green-800 px-12" style="margin: 10px">
-                                    <Link  :href="route('user.show', { 'showUser' : u })">Ver</Link>
-                                </jet-button>
-                                <jet-button class="bg-blue-500 hover:bg-blue-800 px-12" style="margin: 10px">
-                                     <Link :href="route('user.edit', { 'showUser' : u })">Editar</Link>
-                                </jet-button>
-                                
-                                 <!-- <Link method="DELETE" :href="route('user.destroy', { 'showUser' : u })">Eliminar</Link>-->
-
+                                    <Link  :href="route('user.show', { 'showUser' : u })">Ver </Link>
+                                     <Link :href="route('user.edit', { 'showUser' : u })">Editar </Link>
+                            
                                   <jet-button class="bg-red-500 hover:bg-red-800 px-12" style="margin: 10px" @click="handleOpenModal(u)">Eliminar</jet-button>
                             </tr>
                          </tbody>       
